@@ -15,6 +15,7 @@ import io
 import logging
 import os
 import lxml.html
+import lxml.html.soupparser
 import tempfile
 import subprocess
 import re
@@ -335,7 +336,7 @@ class IrActionsReport(models.Model):
             return {}
         layout = self.env['ir.ui.view'].browse(self.env['ir.ui.view'].get_view_id('web.minimal_layout'))
 
-        root = lxml.html.fromstring(html)
+        root = lxml.html.soupparser.fromstring(html)
         match_klass = "//div[contains(concat(' ', normalize-space(@class), ' '), ' {} ')]"
 
         header_node = etree.Element('div', id='minimal_layout_report_headers')
